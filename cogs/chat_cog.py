@@ -1,4 +1,5 @@
 from discord.ext import commands
+from config import chat_channel
 
 class ChatCog(commands.Cog):
     
@@ -6,12 +7,16 @@ class ChatCog(commands.Cog):
         self.bot = bot
         self.chat_service = bot.chat_service
         self.joke_service = bot.joke_service
+        self.chat_channel = chat_channel
 
     @commands.Cog.listener()
     async def on_message(self, message):
 
         # Ignore self
         if message.author.bot:
+            return
+
+        if message.channel.id != chat_channel:
             return
 
         # Check if berry was mentioned

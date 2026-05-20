@@ -23,7 +23,7 @@ class BerryFlames(commands.Bot):
         # Services
         self.chat_service = ChatService()
         self.joke_service = JokeService()
-        self.economy_service = EconomyService()
+        self.economy_service = BankingService()
 
     async def setup_hook(self):
 
