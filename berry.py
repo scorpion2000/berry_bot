@@ -1,7 +1,12 @@
 import discord
+import os
 from discord.ext import commands
 from services.chat_service import ChatService
 from services.joke_service import JokeService
+from dotenv import load_dotenv
+
+load_dotenv()
+TOKEN = os.getenv("DISCORD_TOKEN")
 
 class BerryFlames(commands.Bot):
 
@@ -26,4 +31,4 @@ class BerryFlames(commands.Bot):
 
 bot = BerryFlames()
 
-bot.run("MTUwNjc1NTcyNjU5OTc4NjUwNg.GUfkcU.f_Zc8REhlhDiLWnY7vl942DZynKndIy18K0830")
+bot.run(TOKEN)
