@@ -14,13 +14,7 @@ class BankingCog(commands.Cog):
         name="send_bits",
         description="Send your bits to someone else!"
     )
-    async def send_bits(
-        self,
-        interaction: discord.Interaction,
-        to_user: discord.User,
-        amount: int
-    ):
-        # Oh jesus python looks scuffed
+    async def send_bits(self, interaction: discord.Interaction, to_user: discord.User, amount: int):
         sender = interaction.user
 
         success, error = self.banking.transfer_bits(sender.name,to_user.name,amount)

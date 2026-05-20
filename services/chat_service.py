@@ -12,7 +12,6 @@ from responses import random_reply_responses
 from responses import random_joke_words
 
 class ChatService:
-
     def is_berry_mentioned(self, content: str) -> bool:
         content = content.lower()
 
@@ -22,7 +21,6 @@ class ChatService:
         )
     
     def get_response(self, content: str, self_mentioned: bool):
-
         content = content.lower()
 
         # Question response
