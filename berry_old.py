@@ -490,4 +490,4 @@ async def invite_user(interaction: discord.Interaction, user: discord.User):
 
     await interaction.response.send_message(f'{user.mention} successfully invited! Mwah~', ephemeral=True)
 
-client.run('MTQ5OTQwMzExMTYyOTA2MjMxNQ.GayhtV.qprTYPGRRcZt4JsHclQ0Ts6XD9dBDEJ1efy8Gc')
+client.run('')
