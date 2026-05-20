@@ -3,8 +3,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 
-
-class EconomyCog(commands.Cog):
+class Bankingog(commands.Cog):
 
     def __init__(self, bot):
 

@@ -1,6 +1,6 @@
 import json
 
-class EconomyService:
+class BankingService:
 
     def __init__(self):
         self.bank = self.load_bank()
