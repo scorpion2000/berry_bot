@@ -1,0 +1,29 @@
+import discord
+from discord.ext import commands
+from services.chat_service import ChatService
+from services.joke_service import JokeService
+
+class BerryFlames(commands.Bot):
+
+    def __init__(self):
+
+        intents = discord.Intents.default()
+        intents.message_content = True
+        intents.presences = True
+        intents.members = True
+
+        super().__init__(intents = intents, command_prefix='$')
+
+        # Services
+        self.chat_service = ChatService()
+        self.joke_service = JokeService()
+
+    async def setup_hook(self):
+
+        # Load cogs
+        await self.load_extension("cogs.chat_cog")
+
+
+bot = BerryFlames()
+
+bot.run("MTUwNjc1NTcyNjU5OTc4NjUwNg.GUfkcU.f_Zc8REhlhDiLWnY7vl942DZynKndIy18K0830")

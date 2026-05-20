@@ -1,0 +1,5 @@
+main_category_id = 1238264503737778257
+archive_category_id = 1499487105947275335
+chat_channel = 1237888183589535774
+room_creation_channel = 1237925077807534091
+my_creators_user_id = 141177261310083072
