@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 
-class Bankingog(commands.Cog):
+class BankingCog(commands.Cog):
 
     def __init__(self, bot):
 
@@ -37,4 +37,4 @@ class Bankingog(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(EconomyCog(bot))
+    await bot.add_cog(BankingCog(bot))

@@ -30,6 +30,7 @@ class BerryFlames(commands.Bot):
         # Load cogs
         await self.load_extension("cogs.chat_cog")
         await self.load_extension("cogs.bank_cog")
+        await self.tree.sync()
 
 
 bot = BerryFlames()

@@ -10,6 +10,7 @@ class RoomsCog(commands.Cog):
 
         self.bot = bot
         self.rooms = bot.room_service
+        print("RoomsCog loaded")
 
     @app_commands.command(
         name="create_room",
