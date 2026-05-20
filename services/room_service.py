@@ -4,7 +4,7 @@ from config import archive_category_id
 from config import room_creation_channel
 
 class RoomService:
-    def __init__(self,main_category_id,archive_category_id,room_creation_channel):
+    def __init__(self):
         self.main_category_id = main_category_id
         self.archive_category_id = archive_category_id
         self.room_creation_channel = room_creation_channel

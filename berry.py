@@ -4,6 +4,7 @@ from discord.ext import commands
 from services.chat_service import ChatService
 from services.joke_service import JokeService
 from services.banking_service import BankingService
+from services.room_service import RoomService
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -24,6 +25,7 @@ class BerryFlames(commands.Bot):
         self.chat_service = ChatService()
         self.joke_service = JokeService()
         self.economy_service = BankingService()
+        self.room_service = RoomService()
 
     async def setup_hook(self):
 

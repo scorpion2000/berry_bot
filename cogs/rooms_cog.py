@@ -10,20 +10,18 @@ class RoomsCog(commands.Cog):
 
         self.bot = bot
         self.rooms = bot.room_service
-        print("RoomsCog loaded")
 
     @app_commands.command(
         name="create_room",
         description="Creates a private room."
     )
     async def create_room(self, interaction: discord.Interaction, user1: discord.User,user2: discord.User, channel_name: str):
-        if not self.rooms.can_create_room_here(interaction.channel):
-            await interaction.response.send_message(
-                "You can't use that here.",
-                ephemeral=True
-            )
-
-            return
+        #if not self.rooms.can_create_room_here(interaction.channel):
+        #    await interaction.response.send_message(
+        #        "You can't use that here.",
+        #        ephemeral=True
+        #    )
+        #    return
 
         channel = await self.rooms.create_room(interaction.guild, user1, user2, channel_name)
 

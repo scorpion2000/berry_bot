@@ -1,5 +1,5 @@
 main_category_id = 1506756334190596208
 archive_category_id = 1506795318455304192
 chat_channel = 1506756302871986400
-room_creation_channel = 1237925077807534091
+room_creation_channel = 1506756302871986400
 my_creators_user_id = 141177261310083072
