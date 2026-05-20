@@ -37,6 +37,10 @@ class ChatService:
         if "pats berry" in content or "pat berry" in content:
             return "eep!"
 
+        # Berry was cursed
+        if any(word in content for word in curse_words):
+            return random.choice(curse_responses)
+
         # Joke response
         if self_mentioned and any(word in content for word in random_joke_words) and "joke" in content:
             joke = self.joke_service.get_joke()
@@ -46,5 +50,9 @@ class ChatService:
         # Callout response
         if self_mentioned and content in ["berry", "berry!"]:
             return random.choice(berry_responses)
+
+        # Penis response
+        if any(word in content for word in penisJoke_words):
+            return random.choice(penisJoke_responses)
 
         return None
