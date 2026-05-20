@@ -21,9 +21,9 @@ class BankingService:
         return self.bank.get(username, 0)
 
     def add_bits(self, username, amount):
-        if self.bank.get(username, 0) + bits < 0:
+        if self.bank.get(username, 0) + amount < 0:
             return False
-        self.bank.update({username : self.bank.get(username, 0) + bits})
+        self.bank.update({username : self.bank.get(username, 0) + amount})
         self.save_bank()
         return True
 

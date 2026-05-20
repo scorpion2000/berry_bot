@@ -7,6 +7,7 @@ class ChatCog(commands.Cog):
         self.bot = bot
         self.chat_service = bot.chat_service
         self.joke_service = bot.joke_service
+        self.banking = bot.banking_service
         self.chat_channel = chat_channel
 
     @commands.Cog.listener()
@@ -18,6 +19,8 @@ class ChatCog(commands.Cog):
 
         if message.channel.id != chat_channel:
             return
+
+        self.banking.add_bits(message.author.name, 1)
 
         # Check if berry was mentioned
         berry_mentioned = self.chat_service.is_berry_mentioned(message.content)

@@ -8,7 +8,7 @@ class BankingCog(commands.Cog):
     def __init__(self, bot):
 
         self.bot = bot
-        self.economy = bot.economy_service
+        self.banking = bot.banking_service
 
     @app_commands.command(
         name="send_bits",
@@ -23,7 +23,7 @@ class BankingCog(commands.Cog):
         # Oh jesus python looks scuffed
         sender = interaction.user
 
-        success, error = self.economy.transfer_bits(sender.name,to_user.name,amount)
+        success, error = self.banking.transfer_bits(sender.name,to_user.name,amount)
 
         if not success:
             await interaction.response.send_message(error,ephemeral=True)

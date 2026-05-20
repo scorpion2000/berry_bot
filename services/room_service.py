@@ -16,7 +16,7 @@ class RoomService:
         return (channel.category and channel.category.id == self.main_category_id)
 
     def can_create_room_here(self, channel):
-        return (channel.category and channel.category.id == self.room_creation_channel)
+        return (channel.category and channel.id == self.room_creation_channel)
     
     async def create_room(self, guild, user1, user2, channel_name):
         category = guild.get_channel(self.main_category_id)
