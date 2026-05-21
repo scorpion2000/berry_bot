@@ -28,6 +28,19 @@ class BankingCog(commands.Cog):
             f"{amount} bits to "
             f"{to_user.mention}!"
         )
+    
+    @app_commands.command(
+        name="get_bits",
+        description="Check how many bits you have in the bank!"
+    )
+    async def get_bits(self, interaction: discord.Interaction):
+        sender = interaction.user
+
+        bits = self.banking.get_balance(sender.name)
+
+        await interaction.response.send_message(
+            f"You currently own {bits} bits!"
+        )
 
 
 async def setup(bot):
