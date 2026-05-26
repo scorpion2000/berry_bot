@@ -26,6 +26,7 @@ class BerryFlames(commands.Bot):
         self.joke_service = JokeService()
         self.banking_service = BankingService()
         self.room_service = RoomService()
+        self.chengelog_service = ChangelogService()
 
     async def setup_hook(self):
 

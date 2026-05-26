@@ -1,0 +1,2 @@
+class ChangelogService:
+    pass
