@@ -2,14 +2,19 @@ import discord
 from discord.ext import commands, tasks
 from discord import app_commands
 from datetime import datetime
+from typing import List
 
 class BitRoleCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.service = bot.bit_role_service
         self.banking = bot.banking_service
-    
-    durations = [
+
+    @app_commands.command(
+        name="bit_role",
+        description="Create a reaction role that will cost bits!"
+    )
+    @app_commands.choices(duration=[
         app_commands.Choice(name="1 Hour", value="hour"),
         app_commands.Choice(name="1 Day", value="day"),
         app_commands.Choice(name="1 Month", value="month"),
@@ -18,13 +23,7 @@ class BitRoleCog(commands.Cog):
         app_commands.Choice(name="6 Months", value="6months"),
         app_commands.Choice(name="1 Year", value="year"),
         app_commands.Choice(name="Indefinite", value="indefinite"),
-    ]
-
-    @app_commands.command(
-        name="bit_role",
-        description="Create a reaction role that will cost bits!"
-    )
-    @app_commands.choices(duration=durations)
+    ])
     async def bit_role(
         self,
         interaction: discord.Interaction,
@@ -39,11 +38,11 @@ class BitRoleCog(commands.Cog):
                 f"Price: {cost} bits\n"
                 f"Lasts for {duration.name}"
             ),
-            color=discord.Color.gold()
+            color=discord.Color.teal()
         )
 
         message = await interaction.channel.send(embed=embed)
-        await message.add_reaction(":moneybag:")
+        await message.add_reaction("💰")
 
         data = self.service.load_data()
 
@@ -58,12 +57,12 @@ class BitRoleCog(commands.Cog):
 
         await interaction.response.send_message(
             "Bit role created! Let the bits flow~",
-            ephemeral=true
+            ephemeral=True
         )
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        if str(payload.emoji) != ":moneybag:":
+        if str(payload.emoji) != "💰":
             return
         
         data = self.service.load_data()
@@ -87,12 +86,12 @@ class BitRoleCog(commands.Cog):
 
         cost = role_data["cost"]
 
-        if not elf.banking.add_bits(member.name, -cost):
-            await message.remove_reaction(":moneybag:", member)
-            return
-
         channel = guild.get_channel(payload.channel_id)
         message = await channel.fetch_message(payload.message_id)
+
+        if not self.banking.add_bits(member.name, -cost):
+            await message.remove_reaction("💰", member)
+            return
 
         await member.add_roles(role)
 
@@ -113,6 +112,7 @@ class BitRoleCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def check_for_expired_roles(self):
+        print("minute loop")
         data = self.service.load_data()
 
         active_roles = data.get("active_roles", [])
@@ -150,13 +150,16 @@ class BitRoleCog(commands.Cog):
         name="bit_role_clear",
         description="Times out all roles "
     )
-    async def bit_role(
+    async def bit_role_clear(
         self,
         interaction: discord.Interaction
     ):
+        data = self.service.load_data()
         active_roles = data.get("active_roles", [])
+        print(active_roles)
 
         remaining_roles = []
+
 
         for entry in active_roles:
             if entry["expiry"] is None:
