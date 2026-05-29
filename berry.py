@@ -6,6 +6,7 @@ from services.joke_service import JokeService
 from services.banking_service import BankingService
 from services.room_service import RoomService
 from services.changelog_service import ChangelogService
+from services.bit_role_service import BitRoleService
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -28,6 +29,7 @@ class BerryFlames(commands.Bot):
         self.banking_service = BankingService()
         self.room_service = RoomService()
         self.changelog_service = ChangelogService()
+        self.bit_role_service = BitRoleService()
 
     async def setup_hook(self):
 
@@ -36,6 +38,7 @@ class BerryFlames(commands.Bot):
         await self.load_extension("cogs.bank_cog")
         await self.load_extension("cogs.rooms_cog")
         await self.load_extension("cogs.changelog_cog")
+        await self.load_extension("cogs.bit_role_cog")
         await self.tree.sync()
 
 

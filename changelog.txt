@@ -1,0 +1,38 @@
+Berry Flames has entered the 2.0 state! Here's what's changed:
+
+**Backend**
+- Berry moved to a proper OOP structure!
+- Source code now up on github, and shared with the owner!
+
+**Banking**
+- Added the `/get_bits` command! No need to chat with Berry to get your current balance!
+- Berry now rewards bits for chatting in public and custom chat rooms!
+- Sending bits is more secure (oops)!
+
+**Chatting**
+- Berry is less chatty! You have to say her name to chat with her!
+- Added `/pie_attack`! Berry will now surprise your target with a pie after a random amount of messages! 25 bits for general chat, 100 for everywhere else!
+
+**Private room creation**
+- You no longer need to specify yourself as the participant when using `/create_room`. Berry now assumes you are meant to participate!
+- Added the `/toggle_room_visibility` command! You can now flaunt your roleplay skills to all members of our community!
+- Berry no longer announces your private room's creation (stay safe, lover pones!)
+
+**Help**
+- There's a new, context dependant `/help` command! It **should** make a hint for all available slash commands, depending on what channel you used it in!
+
+**Quick data privacy QnA**
+I was asked what berry tracks exactly, so for transparency, here's a quick QnA ^^
+Q: Does Berry track my messages?
+A: Not quite. Berry gives a single "bit" for every message sent, but that's it.
+
+Q: Does Berry store the contents of my messages?
+A: No.
+
+Q: Does Berry read the contents of my messages?
+A: Yes. Berry looks for keywords that would trigger certain replies! But she never reads (or cares for) the content/meaning of the message.
+
+
+
+It's not much for a 2.0 release, but reworking the backend took a bit of time.
+Hulla will now get some rest before continuing the work ~///~

@@ -18,16 +18,21 @@ class ChangelogCog(commands.Cog):
         bot_channel = self.bot.get_channel(self.bot_channel)
         file = discord.File("berry.png")
 
-        if interaction.user.role not in ["Admin", "Trial Mod"]:
-            continue
+        changelog = ""
+        with open("changelog.txt", "r", encoding="utf-8") as file:
+            changelog = file.read()
+
+        #if interaction.user.role not in ["Admin", "Trial Mod"]:
+        #    continue
 
         embed = discord.Embed(
             title = "Berry Changelog!",
-            description = "- Test",
+            description = changelog,
             color = discord.Color.teal()
         )
 
-        await bot_channel.send(file = file, embed = embed)
+        #await bot_channel.send(file = file, embed = embed)
+        await bot_channel.send(embed = embed)
 
         await interaction.response.send_message(
             "Changelog sent!",
