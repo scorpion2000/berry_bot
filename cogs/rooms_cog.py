@@ -2,12 +2,14 @@ import discord
 
 from discord.ext import commands
 from discord import app_commands
+from config import member_role_id
 
 
 class RoomsCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.rooms = bot.room_service
+        self.member_role_id = member_role_id
 
     @app_commands.command(
         name="create_room",
@@ -68,6 +70,32 @@ class RoomsCog(commands.Cog):
 
         await interaction.response.send_message(
             "User invited!",
+            ephemeral=True
+        )
+
+    @app_commands.command(
+        name="toggle_room_visibility",
+        description="Toggle the visibiltiy of your room for members!"
+    )
+    async def toggle_room_visibility(
+        self,
+        interaction: discord.Interaction
+    ):
+        member_role = interaction.guild.get_role(self.member_role_id)
+
+        overwrite = channel.overwrites_for(member_role)
+        visible = overwrite.view_channel
+        overwrite.view_channel = not visible
+
+        await interaction.channel.set_permissions(
+            member_role,
+            overwrite=overwrite
+        )
+
+        visibility_state = "visible" if overwrite.view_channel else "hidden"
+
+        await interaction.response.send_message(
+            f"Room is now {visibility_state} to all members!\nRemember, you still need to `/invite` chat participants (spam protection)!",
             ephemeral=True
         )
 
