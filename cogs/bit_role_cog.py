@@ -9,6 +9,7 @@ class BitRoleCog(commands.Cog):
         self.bot = bot
         self.service = bot.bit_role_service
         self.banking = bot.banking_service
+        self.check_for_expired_roles.start()
 
     @app_commands.command(
         name="bit_role",
@@ -112,7 +113,6 @@ class BitRoleCog(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def check_for_expired_roles(self):
-        print("minute loop")
         data = self.service.load_data()
 
         active_roles = data.get("active_roles", [])
