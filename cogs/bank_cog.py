@@ -39,8 +39,21 @@ class BankingCog(commands.Cog):
         bits = self.banking.get_balance(sender.name)
 
         await interaction.response.send_message(
-            f"You currently own {bits} bits!"
+            f"You currently own {bits} bits!",
+            ephemeral=True
         )
+    
+    @app_commands.command(
+        name="get_top_bit_holders",
+        description="Get the top 5 bit holders in the server!"
+    )
+    async def get_top_bit_holders(self, interaction: discord.Interaction):
+        sorted_items = self.banking.get_top_bit_holders(5)
+        results = []
+        for key, value in sorted_items:
+            results.append(f'{key} has: {value} bits!')
+        response = "\n".join(results)
+        await interaction.response.send_message(response)
 
 
 async def setup(bot):

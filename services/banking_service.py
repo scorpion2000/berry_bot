@@ -41,3 +41,7 @@ class BankingService:
         self.add_bits(receiver, amount)
 
         return True, None
+    
+    def get_top_bit_holders(self, number_of_holders):
+        sorted_items = sorted(self.bank.items(), key=lambda x: x[1], reverse=True)[:number_of_holders]
+        return sorted_items

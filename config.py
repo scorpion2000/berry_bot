@@ -6,3 +6,5 @@ my_creators_user_id = 141177261310083072
 bot_channel = 1506756302871986400
 
 member_role_id = 0
+
+MAX_LEVEL = 3

@@ -8,6 +8,7 @@ class ChatCog(commands.Cog):
         self.bot = bot
         self.chat_service = bot.chat_service
         self.joke_service = bot.joke_service
+        self.checkin_service = bot.checkin_service
         self.banking = bot.banking_service
         self.chat_channel = chat_channel
 
@@ -18,7 +19,7 @@ class ChatCog(commands.Cog):
         if message.author.bot:
             return
 
-        self.banking.add_bits(message.author.name, 1)
+        self.banking.add_bits(message.author.name, 1 + self.checkin_service.get_level(message.author.id)["level"])
 
         if message.channel.id != chat_channel:
             return

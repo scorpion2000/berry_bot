@@ -8,6 +8,7 @@ from services.room_service import RoomService
 from services.changelog_service import ChangelogService
 from services.bit_role_service import BitRoleService
 from services.pie_attack_service import PieAttackService
+from services.checkin_service import CheckInService
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -32,6 +33,7 @@ class BerryFlames(commands.Bot):
         self.changelog_service = ChangelogService()
         self.bit_role_service = BitRoleService()
         self.pie_attack_service = PieAttackService()
+        self.checkin_service = CheckInService()
 
     async def setup_hook(self):
 
@@ -42,6 +44,7 @@ class BerryFlames(commands.Bot):
         await self.load_extension("cogs.changelog_cog")
         await self.load_extension("cogs.bit_role_cog")
         await self.load_extension("cogs.pie_attack_cog")
+        await self.load_extension("cogs.checkin_cog")
         await self.tree.sync()
 
 
