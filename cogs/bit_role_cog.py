@@ -10,6 +10,7 @@ class BitRoleCog(commands.Cog):
         self.service = bot.bit_role_service
         self.banking = bot.banking_service
         self.check_for_expired_roles.start()
+        self.bit_bag_emoji_id = 1510292970585460928
 
     @app_commands.command(
         name="bit_role",
@@ -32,10 +33,11 @@ class BitRoleCog(commands.Cog):
         cost: int,
         duration: app_commands.Choice[str]
     ):
+        emoji = "<:bit_bag:1510292943423012994>"
         embed = discord.Embed(
             title=f"{role.mention} now available!",
             description=(
-                f"React with :moneybag: to get {role.mention}\n"
+                f"React with {emoji} to get {role.mention}\n"
                 f"Price: {cost} bits\n"
                 f"Lasts for {duration.name}"
             ),
@@ -43,7 +45,7 @@ class BitRoleCog(commands.Cog):
         )
 
         message = await interaction.channel.send(embed=embed)
-        await message.add_reaction("💰")
+        await message.add_reaction(emoji)
 
         data = self.service.load_data()
 
@@ -63,7 +65,7 @@ class BitRoleCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        if str(payload.emoji) != "💰":
+        if payload.emoji.id != 1510292943423012994:
             return
         
         data = self.service.load_data()
@@ -91,7 +93,7 @@ class BitRoleCog(commands.Cog):
         message = await channel.fetch_message(payload.message_id)
 
         if not self.banking.add_bits(member.name, -cost):
-            await message.remove_reaction("💰", member)
+            await message.remove_reaction(emoji, member)
             return
 
         await member.add_roles(role)

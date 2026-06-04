@@ -1,4 +1,5 @@
 from discord.ext import commands
+from discord import app_commands
 from config import chat_channel
 
 class ChatCog(commands.Cog):
@@ -17,10 +18,10 @@ class ChatCog(commands.Cog):
         if message.author.bot:
             return
 
+        self.banking.add_bits(message.author.name, 1)
+
         if message.channel.id != chat_channel:
             return
-
-        self.banking.add_bits(message.author.name, 1)
 
         # Check if berry was mentioned
         berry_mentioned = self.chat_service.is_berry_mentioned(message.content)
