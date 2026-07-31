@@ -15,6 +15,11 @@ class ChangelogCog(commands.Cog):
         description="Display the latest changelog! (Admin only)"
     )
     async def changelog(self, interaction: discord.Interaction):
+        if any(role.name in ["Admin"]for role in interaction.user.roles):
+            await interaction.response.send_message(
+                "Must be an admin to do this!",
+                ephemeral=True
+            )
         bot_channel = self.bot.get_channel(self.bot_channel)
         file = discord.File("berry.png")
 

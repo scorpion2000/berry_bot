@@ -15,17 +15,24 @@ class RoomsCog(commands.Cog):
         name="create_room",
         description="Creates a private room."
     )
-    async def create_room(self, interaction: discord.Interaction, user1: discord.User,user2: discord.User, channel_name: str):
+    async def create_room(self, interaction: discord.Interaction, your_partner: discord.User, channel_name: str):
         if not self.rooms.can_create_room_here(interaction.channel):
             await interaction.response.send_message(
-                "You can't use that here.",
+                "You can't use that here!",
                 ephemeral=True
             )
             return
+        creator = interaction.user
 
-        channel = await self.rooms.create_room(interaction.guild, user1, user2, channel_name)
+        channel = await self.rooms.create_room(interaction.guild, creator, your_partner, channel_name)
 
-        await channel.send(f"Welcome {user1.mention} and {user2.mention}!")
+        await channel.send(
+            f"Welcome to your private room, {creator.mention} and {your_partner.mention}!\n"
+            f'This is channel is restricted to you, and the admins. Server rules still apply!\n'
+            f'You can use `/invite` here to get more people in, should you need~\n'
+            f'Lastly, use `/toggle_room_visibility` to make this channel visible to every server member!\n'
+            f'Enjoy your stay!'
+        )
 
         await interaction.response.send_message(f"Created {channel.mention}", ephemeral=True)
 
@@ -33,14 +40,14 @@ class RoomsCog(commands.Cog):
     async def archive(self, interaction: discord.Interaction):
         if not self.rooms.is_admin(interaction.user):
             await interaction.response.send_message(
-                "Admins only.",
+                "Admins only!",
                 ephemeral=True
             )
             return
 
         if not self.rooms.is_private_room(interaction.channel):
             await interaction.response.send_message(
-                "Not a private room.",
+                "Not a private room!",
                 ephemeral=True
             )
             return
@@ -48,7 +55,7 @@ class RoomsCog(commands.Cog):
         await self.rooms.archive_room(interaction.channel, interaction.guild)
 
         await interaction.response.send_message(
-            "Room archived.",
+            "Room archived!",
             ephemeral=True
         )
 
@@ -66,7 +73,7 @@ class RoomsCog(commands.Cog):
 
         await self.rooms.invite_user(interaction.channel,user)
 
-        await interaction.channel.send(f"{user.mention} was invited by {interaction.user.mention}")
+        await interaction.channel.send(f"Hey {user.mention}, you were invited by {interaction.user.mention}!")
 
         await interaction.response.send_message(
             "User invited!",
@@ -83,7 +90,7 @@ class RoomsCog(commands.Cog):
     ):
         member_role = interaction.guild.get_role(self.member_role_id)
 
-        overwrite = channel.overwrites_for(member_role)
+        overwrite = interaction.channel.overwrites_for(member_role)
         visible = overwrite.view_channel
         overwrite.view_channel = not visible
 
@@ -92,11 +99,10 @@ class RoomsCog(commands.Cog):
             overwrite=overwrite
         )
 
-        visibility_state = "visible" if overwrite.view_channel else "hidden"
+        visibility_state = "visible to" if overwrite.view_channel else "hidden from"
 
         await interaction.response.send_message(
-            f"Room is now {visibility_state} to all members!\nRemember, you still need to `/invite` chat participants (spam protection)!",
-            ephemeral=True
+            f"Room is now {visibility_state} all members!\nRemember, you still need to `/invite` chat participants (spam protection)!"
         )
 
 

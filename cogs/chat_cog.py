@@ -36,6 +36,21 @@ class ChatCog(commands.Cog):
         if response:
             await message.channel.send(response)
 
+    """@app_commands.command(
+        name="help",
+        description="List all of Berry's functionalities!"
+    )
+    async def help(self, interaction: discord.Interaction, to_user: discord.User, amount: int):
+
+        await interaction.response.send_message(
+            f"**Banking**\n"
+            f"You generally get one bit per message you sent. "
+            f"use `/send_bits` to send bits to your friends"
+            f"{amount} bits to "
+            f"{to_user.mention}!",
+            ephemeral=True
+        )"""
+
 
 async def setup(bot):
     await bot.add_cog(ChatCog(bot))

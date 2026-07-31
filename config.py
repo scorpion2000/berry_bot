@@ -1,10 +1,10 @@
-main_category_id = 1506756334190596208
-archive_category_id = 1506795318455304192
-chat_channel = 1506756302871986400
-room_creation_channel = 1506756302871986400
+main_category_id = 1238264503737778257
+archive_category_id = 1499487105947275335
+chat_channel = 1237888183589535774
+room_creation_channel = 1238264672642142390
 my_creators_user_id = 141177261310083072
-bot_channel = 1506756302871986400
+bot_channel = 1241197142807285820
 
-member_role_id = 0
+member_role_id = 1238546588771684492
 
 MAX_LEVEL = 3

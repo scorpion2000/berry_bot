@@ -33,6 +33,12 @@ class BitRoleCog(commands.Cog):
         cost: int,
         duration: app_commands.Choice[str]
     ):
+        if any(role.name in ["Admin"]for role in interaction.user.roles):
+            await interaction.response.send_message(
+                "Must be an admin to do this!",
+                ephemeral=True
+            )
+
         emoji = "<:bit_bag:1510292943423012994>"
         embed = discord.Embed(
             title=f"{role.mention} now available!",
@@ -147,42 +153,6 @@ class BitRoleCog(commands.Cog):
     @check_for_expired_roles.before_loop
     async def before_checking_for_expired_roles(self):
         await self.bot.wait_until_ready()
-
-    @app_commands.command(
-        name="bit_role_clear",
-        description="Times out all roles "
-    )
-    async def bit_role_clear(
-        self,
-        interaction: discord.Interaction
-    ):
-        data = self.service.load_data()
-        active_roles = data.get("active_roles", [])
-        print(active_roles)
-
-        remaining_roles = []
-
-
-        for entry in active_roles:
-            if entry["expiry"] is None:
-                remaining_roles.append(entry)
-                continue
-
-            if True:
-                guild = self.bot.get_guild(entry["guild_id"])
-
-                if guild:
-                    member = guild.get_member(entry["user_id"])
-                    role = guild.get_role(entry["role_id"])
-
-                    if member and role:
-                        await member.remove_roles(role)
-            else:
-                remaining_roles.append(entry)
-
-        data["active_roles"] = remaining_roles
-
-        self.service.save_data(data)
 
 async def setup(bot):
     await bot.add_cog(BitRoleCog(bot))
